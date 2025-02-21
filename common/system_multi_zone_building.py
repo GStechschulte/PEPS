@@ -96,6 +96,16 @@ class MultiZoneBuildingSimulation(System):
             simulation_end_day=simulation_end_day,
         )
 
+        print("--- MultiZoneBuildingSimulation ---")
+        for param_name, value in vars(self).items():
+            print(f"{param_name}: {value}")
+
+        print(f"base_model_config: {base_model_config}")
+        print(f"models_type: {models_type}")
+        print(f"zones_temperature: {zones_temperature}")
+        print(f"controllers_configuration: {controllers_configuration}")
+        print(f"models_configuration: {models_configuration}")
+
         self.heating_period = heating_period
         self._results_path = self._results_directory + f'/control_results/experiment_{control_experiment_id}'
         self.create_result_addm_folder(self._results_path)
@@ -113,7 +123,9 @@ class MultiZoneBuildingSimulation(System):
         data_path = f'common/results/{building_type}/simulation_{simulation_id}/processed_data'
         model_path = f'common/results/{building_type}/simulation_{simulation_id}/models/'
         self.controlled_zones_id = controlled_zones_id
+
         for i, zone_id in enumerate(controlled_zones_id):
+            print(f"i, {i}, zone_id: {zone_id}")
             mean, std = load_norm_constants(zone_id, data_path)
             state_indexes = get_processed_state_indexes(data_path)
             parameters = load_ray_controller_parameters(

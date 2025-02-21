@@ -37,14 +37,17 @@ def parse_configuration(
     # Add controller configuration and replace the model type by the one specified in the function's parameters
     with open(f'./controllers/configurations/{controller_type}/config{controller_config}.gin', "r") as file:
         controller_config = file.readlines()
+
     for line in controller_config:
         if line.startswith(f"{controller_type}.prediction_model ="):
             modified_config += f"{controller_type}.prediction_model = @{model_type}\n"
         else:
             modified_config += line
+
     # Add simulation configuration and replace the controller type by the one specified in the function's parameters
     with open(f'./common/configurations/single_zone_configuration{simulation_config}.gin', "r") as file:
         original_config = file.readlines()
+
     for line in original_config:
         if line.startswith("SingleZoneBuildingSimulation.controller_class =") and controller_type is not None:
             modified_config += f"SingleZoneBuildingSimulation.controller_class = @{controller_type}\n"
@@ -86,6 +89,7 @@ def main(
         np.random.seed(settings.simulation_seed)
     else:
         print('Warning: the simulation seed is not fixed')
+
     building_type = gin.query_parameter('%BUILDING_TYPE')
     model_path = f'./common/results/{building_type}/simulation_{simulation_configuration}/models/{model_type}/zone{0}/train_test_{training_config}_model_{model_config}'
     simulation = SingleZoneBuildingSimulation(model_path=model_path)

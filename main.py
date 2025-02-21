@@ -2,6 +2,7 @@ import argparse
 from main_scripts.base_simulation import main as base_simulation
 from main_scripts.train_test_models import main as train_test_models
 from main_scripts.single_zone_building_control import main as single_zone_building_simulation
+from main_scripts.multi_zone_building_control import main as multi_zone_building_simulation
 
 
 def run_base_simulation(args) -> None:
@@ -42,6 +43,19 @@ def run_train_test_models(args) -> None:
         )
 
 
+def run_multi_zone_building_simulation(args) -> None:
+    multi_zone_building_simulation(
+        simulation_configuration=args.simulation_configuration,
+        controller_type=args.controller_type,
+        coordinator_config=args.coordinator_config,
+        controller_config=args.controller_config,
+        model_type=args.model_type,
+        model_config=args.model_config,
+        training_config=args.training_config,
+        base_model_config=args.base_model_config
+    )
+
+
 def run_single_zone_building_simulation(args) -> None:
     """
     :param args:
@@ -68,6 +82,38 @@ def main():
     parser_base_simulation.add_argument('--base_simulation_configuration_id', '-sim_id', type=int, required=True)
     parser_base_simulation.add_argument('--controller_configuration_id', '-controller_id', type=int, required=True)
     parser_base_simulation.add_argument('--controller_type', type=str, default='RandomController')
+
+    # Arguments for multi_zone_building_control
+    parser_multi_zone_building = subparsers.add_parser('multi_zone_building')
+    parser_multi_zone_building.add_argument('--simulation_configuration', '-sim_id', type=int, required=True)
+    parser_multi_zone_building.add_argument('--coordinator_config', '-coord_id', type=int, required=True)
+    parser_multi_zone_building.add_argument(
+        "--model_type",
+        '-m',
+        type=str,
+        required=False,
+        choices=[
+            'SSM',
+            'RSSM',
+            'StructuredSSM',
+            'CESSM',
+            'CDE',
+            'LatentNeuralODE',
+            'StructuredLatentNeuralODE',
+            'CELatentNeuralODE',
+            'NeuralODE',
+        ],
+    )
+    parser_multi_zone_building.add_argument("--model_config", "-m_config", type=int)
+    parser_multi_zone_building.add_argument("--training_config", "-t_config", type=int)
+    parser_multi_zone_building.add_argument("--base_model_config", type=int, default=1)
+    parser_multi_zone_building.add_argument(
+        "--controller_type",
+        "-c",
+        type=str,
+        choices=['RayShootingController', 'RayRobustController']
+    )
+    parser_multi_zone_building.add_argument("--controller_config", "-c_config", type=int)
 
     # Arguments for single_zone_building_control
     parser_single_zone_building = subparsers.add_parser('single_zone_building')
@@ -164,6 +210,8 @@ def main():
         run_train_test_models(args)
     elif args.script == 'single_zone_building':
         run_single_zone_building_simulation(args)
+    elif args.script == 'multi_zone_building':
+        run_multi_zone_building_simulation(args)
     else:
         raise ValueError("Invalid script name")
 
