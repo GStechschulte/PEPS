@@ -118,6 +118,10 @@ def test(
     :return:
     """
 
+    print("--- testing ---")
+    print(f"batch_length: {batch_length}")
+    print(f"batch_size: {batch_size}")
+
     model_type = model.__name__
     data_path = f'common/results/{building}/simulation_{simulation_id}/processed_data'
     model_dir = f'common/results/{building}/simulation_{simulation_id}/models/{model_type}/zone{zone_id}/train_test_{test_config}_model_{model_config_id}'

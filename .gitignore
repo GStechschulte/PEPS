@@ -1,0 +1,25 @@
+__pycache__/
+*.pyc
+*.so
+*~
+.#*
+.DS_Store
+build
+*.egg-info/
+dist/
+.coverage
+tags
+*.zip
+*.nt.bz2
+*.tar.gz
+*.tgz
+.ipynb_checkpoints
+*.orig
+.cache
+docs/_build
+.vscode/
+pytest.ini
+/.quarto/
+.Rproj.user
+# Git ignore all the notebook files in the root
+*.ipynb

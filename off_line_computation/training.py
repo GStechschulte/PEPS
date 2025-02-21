@@ -117,6 +117,11 @@ def training(
     :return:
     """
 
+    print("--- training ---")
+    print(f"batch_length: {batch_length}")
+    print(f"training_batch_size: {training_batch_size}")
+    print(f"validation_batch_size: {validation_batch_size}")
+
     model_type = model.__name__
     base_path = f'common/results/{building}/simulation_{simulation_id}'
     data_path = base_path + f'/processed_data'
@@ -136,9 +141,16 @@ def training(
     if validation:
         norm_validation_data = load_data(zone_id, data_path, 'validation')
         validation_data = prepare_batches(norm_validation_data, batch_length)
+
+        print(f"norm_training_data.shape: {norm_training_data.shape}")
+        print(f"norm_validation_data.shape: {norm_validation_data.shape}")
+
         del norm_validation_data, norm_training_data
     else:
         validation_data = None
+
+    print(f"training_data.shape: {training_data.shape}")
+    print(f"validation_data.shape: {validation_data.shape}")
 
     model = model(
         zone_id=zone_id,

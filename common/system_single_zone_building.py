@@ -54,6 +54,9 @@ class SingleZoneBuildingSimulation(System):
             simulation_end_day=simulation_end_day,
         )
 
+        print("--- SingleZoneBuildingSimulation ---")
+        print(f"controller: {controller_class}")
+
         try:
             schedule_path = f'common/configurations/consumption_schedule/{consumption_schedule_name}.csv'
             self.consumption_schedule = pd.read_csv(schedule_path)
