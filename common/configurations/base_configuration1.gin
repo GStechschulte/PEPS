@@ -1,7 +1,7 @@
 ########################## Global Scope ##########################
-BUILDING_TYPE = 'house'
+BUILDING_TYPE = 'lowrise_apartments'
 SIMULATION_ID = 1
-NUMBER_OF_ZONES = 1
+NUMBER_OF_ZONES = 18
 PREDICTION_HORIZON = 8
 N_LAGS = 4
 PROCESSED_DATA_DIR = './off_line_computation/data/'

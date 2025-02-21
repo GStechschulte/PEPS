@@ -1,4 +1,4 @@
-include './common/configurations/base_configuration3.gin'
+include './common/configurations/base_configuration1.gin'
 
 MultiZoneBuildingSimulation.control_experiment_id = 1
 MultiZoneBuildingSimulation.simulation_id = %SIMULATION_ID

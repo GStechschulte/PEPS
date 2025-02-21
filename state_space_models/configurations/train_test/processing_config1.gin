@@ -1,7 +1,7 @@
-process_data.building_type = 'house'
+process_data.building_type = 'lowrise_apartments'
 process_data.simulation_id = 1
 process_data.simulation_results_dir = 'common/results/'
-process_data.number_of_zones = 1
+process_data.number_of_zones = 18
 process_data.n_lags = 4
 process_data.heating_season = True
 process_data.setpoint_change = False

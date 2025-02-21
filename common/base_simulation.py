@@ -10,7 +10,7 @@ from common.utils import save_config_file
 
 @gin.configurable
 class BaseSimulation(System):
-    
+
     def __init__(
         self,
         simulation_id: int,
@@ -55,7 +55,7 @@ class BaseSimulation(System):
             The end date is included in the simulation.
         :param simulation_end_day: simulation end day of the month
         """
-        
+
         System.__init__(
             self,
             simulation_id=simulation_id,
@@ -74,6 +74,9 @@ class BaseSimulation(System):
             simulation_end_month=simulation_end_month,
             simulation_end_day=simulation_end_day,
         )
+
+        print("--- Running Base Simulation ---")
+        print(f"building_type: {building_type}")
 
         # Instantiate random controllers
         self.controllers = {}
